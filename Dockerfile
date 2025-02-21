@@ -14,6 +14,6 @@ FROM openjdk:17-jdk-slim
 VOLUME /tmp
 WORKDIR /app
 COPY target/*.jar /app.jar
-ENV SERVER_PORT=8080
-ENTRYPOINT ["java", "-Dserver.port=${SERVER_PORT}", "-jar", "/app.jar"]
+ENV PORT=${PORT}
+ENTRYPOINT ["java", "-Dserver.port=${PORT}", "-jar", "/app.jar"]
 
