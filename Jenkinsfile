@@ -9,10 +9,7 @@ pipeline {
   parameters {
     string(name: 'APP_NAME', defaultValue: '', description: 'What is the Heroku app name?')
   }
-
-
   stages {
-
     stage('Build') {
       steps {
          sh 'docker build -t Lukasjai/masterarbeit_springboot_test_jenkis_all_linux:latest .'
@@ -34,7 +31,8 @@ pipeline {
     stage('Release the image') {
       steps {
         sh '''
-          heroku container:release web --app=$APP_NAME
+             heroku stack:set container --app=$APP_NAME
+             heroku container:release web --app=$APP_NAME
         '''           }
     }
   }
