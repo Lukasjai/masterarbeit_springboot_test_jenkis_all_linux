@@ -13,7 +13,7 @@ RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 FROM openjdk:17-jdk-slim
 VOLUME /tmp
 WORKDIR /app
-COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
+COPY target/*.jar /app.jar
 ENV SERVER_PORT=8080
 ENTRYPOINT ["java", "-Dserver.port=${SERVER_PORT}", "-jar", "/app.jar"]
 
