@@ -7,7 +7,7 @@ pipeline {
     HEROKU_API_KEY = credentials('heroku-lukasjai')
   }
   parameters {
-    string(name: 'APP_NAME', defaultValue: '', description: 'What is the Heroku app name?')
+    string(name: 'APP_NAME', defaultValue: 'java-web-app-jenkins-09059', description: 'What is the Heroku app name?')
   }
   stages {
     stage('Build') {
