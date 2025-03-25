@@ -1,13 +1,10 @@
 pipeline {
   agent any
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
   environment {
     HEROKU_API_KEY = credentials('heroku-lukasjai')
   }
   parameters {
-    string(name: 'APP_NAME', defaultValue: '', description: 'What is the Heroku app name?')
+    string(name: 'APP_NAME', defaultValue: '', description: 'Please enter Heroku app name!')
   }
   stages {
     stage('Build') {
