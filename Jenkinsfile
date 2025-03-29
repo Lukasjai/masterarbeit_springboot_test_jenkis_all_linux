@@ -3,6 +3,10 @@ pipeline {
   environment {
     HEROKU_API_KEY = credentials('heroku-lukasjai')
   }
+  triggers {
+      cron('H 23 * * *')
+      githubPush()
+    }
   parameters {
     string(name: 'APP_NAME', defaultValue: '', description: 'Please enter Heroku app name!')
   }
@@ -17,25 +21,60 @@ pipeline {
         sh 'echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com'
       }
     }
-    stage('Push to Heroku registry') {
-      steps {
-        sh '''
-                  docker tag Lukasjai/masterarbeit_springboot_test_jenkis_all_linux:latest registry.heroku.com/$APP_NAME/web
-                  docker push registry.heroku.com/$APP_NAME/web
-                '''
+       stage('Push to Heroku registry') {
+          steps {
+            sh '''
+              docker tag Lukasjai/masterarbeit_springboot_test_jenkis_all_linux:latest registry.heroku.com/$APP_NAME/web
+              docker push registry.heroku.com/$APP_NAME/web
+            '''
+          }
+        }
+  stage('Deploy to Dev') {
+        when {
+          triggeredBy 'TimerTrigger'
+        }
+        steps {
+          echo "Deploying to Dev environment..."
+          sh './deploy.sh dev'
+        }
+      }
+
+      stage('Deploy to Test') {
+        when {
+          allOf {
+            branch 'master'
+            not { triggeredBy 'TimerTrigger' }
+          }
+        }
+        steps {
+          script {
+            def isMergeFromDev = false
+            for (changeSet in currentBuild.changeSets) {
+              for (entry in changeSet.items) {
+                if (entry.msg.contains("Merge branch 'development'")) {
+                  isMergeFromDev = true
+                }
+              }
+            }
+            if (isMergeFromDev) {
+              echo "Detected merge from development → Deploying to test"
+              sh './deploy.sh test'
+            } else {
+              echo "No merge from development → Skipping test deployment"
+            }
+          }
+        }
+      }
+
+      stage('Deploy to Prod') {
+        when {
+          expression { return params.DEPLOY_PROD == true }
+        }
+        steps {
+          echo "Deploying to Production environment..."
+          sh './deploy.sh prod'
+        }
       }
     }
-    stage('Release the image') {
-      steps {
-        sh '''
-             heroku stack:set container --app=$APP_NAME
-             heroku container:release web --app=$APP_NAME
-        '''           }
-    }
-  }
-  post {
-    always {
-      sh 'docker logout'
-    }
-  }
+
 }
