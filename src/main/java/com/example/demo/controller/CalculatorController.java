@@ -15,7 +15,6 @@ public class CalculatorController {
         this.calculatorService = calculatorService;
     }
 
-
     @GetMapping("/Calculator")
     public String calculatorPage() {
         return "calculator";
