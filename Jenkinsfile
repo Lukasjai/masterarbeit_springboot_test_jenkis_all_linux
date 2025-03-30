@@ -9,6 +9,7 @@ pipeline {
     }
   parameters {
     string(name: 'APP_NAME', defaultValue: '', description: 'Please enter Heroku app name!')
+        booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Manueller Trigger für Prod Deployment')
   }
   stages {
     stage('Build') {
