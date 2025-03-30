@@ -12,10 +12,10 @@ fi
 # set app name
 case "$ENV" in
   dev)
-    APP_NAME="my-heroku-app-dev"
+    APP_NAME="dev-jenkins8105"
     ;;
   test)
-    APP_NAME="my-heroku-app-test"
+    APP_NAME="test-jenkins8103"
     ;;
   prod)
     if [ -z "$APP_NAME" ]; then
