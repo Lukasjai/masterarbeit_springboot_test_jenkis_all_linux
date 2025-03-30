@@ -29,13 +29,18 @@ case "$ENV" in
     ;;
 esac
 
+echo "📦 Setze Heroku-Stack auf 'container' (falls nötig)..."
+heroku stack:set container --app "$APP_NAME"
+
 echo " Deploying to Heroku environment: $ENV (App: $APP_NAME)"
 
 # Tag and Push of Docker-Images
 docker tag Lukasjai/masterarbeit_springboot_test_jenkis_all_linux:latest registry.heroku.com/$APP_NAME/web
 docker push registry.heroku.com/$APP_NAME/web
 
+
+
 # trigger Heroku-Release
 heroku container:release web --app $APP_NAME
 
-echo "Deployment erfolgreich abgeschlossen für $ENV"
+echo "Deployment erfolgreich abgeschlossen für $ENV  → $APP_NAME"
