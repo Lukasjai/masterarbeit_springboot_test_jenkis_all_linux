@@ -22,14 +22,7 @@ pipeline {
         sh 'echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com'
       }
     }
-       stage('Push to Heroku registry') {
-          steps {
-            sh '''
-              docker tag Lukasjai/masterarbeit_springboot_test_jenkis_all_linux:latest registry.heroku.com/$APP_NAME/web
-              docker push registry.heroku.com/$APP_NAME/web
-            '''
-          }
-        }
+
   stage('Deploy to Dev') {
         when {
           triggeredBy 'TimerTrigger'
