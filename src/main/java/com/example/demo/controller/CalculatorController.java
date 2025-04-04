@@ -11,7 +11,6 @@ public class CalculatorController {
 
     private final CalculatorService calculatorService;
 
-
     public CalculatorController(CalculatorService calculatorService) {
         this.calculatorService = calculatorService;
     }
