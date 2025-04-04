@@ -33,7 +33,7 @@ pipeline {
       stage('Deploy to Test') {
         when {
           allOf {
-            branch 'master'
+            branch 'main'
             not { triggeredBy 'TimerTrigger' }
           }
         }
