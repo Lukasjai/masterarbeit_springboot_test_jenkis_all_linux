@@ -30,7 +30,7 @@ pipeline {
         }
       }
 
-      stage('Deploy to Test') {
+  stage('Deploy to Test') {
         when {
           allOf {
             branch 'main'
@@ -57,7 +57,7 @@ pipeline {
         }
       }
 
-      stage('Deploy to Prod') {
+  stage('Deploy to Prod') {
         when {
           expression { return params.DEPLOY_PROD == true }
         }
