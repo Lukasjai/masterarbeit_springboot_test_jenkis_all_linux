@@ -22,7 +22,7 @@ pipeline {
 
   stage('Deploy to Dev') {
         when {
-          triggeredBy 'TimerTrigger'
+          triggeredBy 'SCMTrigger'
         }
         steps {
           echo "Deploying to Dev environment..."
