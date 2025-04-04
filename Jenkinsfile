@@ -4,7 +4,7 @@ pipeline {
     HEROKU_API_KEY = credentials('heroku-lukasjai')
   }
   triggers {
-      cron('H 23 * * *')
+    cron(40 11 * * ? *)
       githubPush()
     }
   parameters {
