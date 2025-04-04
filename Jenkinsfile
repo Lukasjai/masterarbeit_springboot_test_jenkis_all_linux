@@ -3,10 +3,7 @@ pipeline {
   environment {
     HEROKU_API_KEY = credentials('heroku-lukasjai')
   }
-  triggers {
-    cron(40 11 * * ? *)
-      githubPush()
-    }
+
   parameters {
     string(name: 'APP_NAME', defaultValue: '', description: 'Please enter Heroku app name!')
         booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Manueller Trigger für Prod Deployment')
