@@ -42,8 +42,8 @@ pipeline {
               echo "Detected merge from development → Deploying to test"
               sh './deploy.sh test'
           }
-        }
-      }
+       }
+
 
       stage('Deploy to Prod') {
         when {
