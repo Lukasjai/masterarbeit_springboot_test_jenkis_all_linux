@@ -3,7 +3,9 @@ pipeline {
   environment {
     HEROKU_API_KEY = credentials('heroku-lukasjai')
   }
-
+  triggers {
+    cron('H/4 * * * *')
+  }
   parameters {
     string(name: 'APP_NAME', defaultValue: '', description: 'Please enter Heroku app name!')
         booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Manueller Trigger für Prod Deployment')
@@ -23,7 +25,10 @@ pipeline {
 
   stage('Deploy to Dev') {
         when {
-          triggeredBy 'SCMTrigger'
+          anyOf {
+                   triggeredBy 'SCMTrigger'
+                   triggeredBy 'TimerTrigger'
+                 }
         }
         steps {
           echo "Deploying to Dev environment..."
