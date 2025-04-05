@@ -5,7 +5,7 @@ set -e
 ENV=$1
 
 if [ -z "$ENV" ]; then
-  echo "Kein Environment angegeben. Nutzung: ./deploy.sh [dev|test|prod]"
+  echo "No environment set. use: ./deploy.sh [dev|test|prod]"
   exit 1
 fi
 
@@ -19,17 +19,17 @@ case "$ENV" in
     ;;
   prod)
     if [ -z "$APP_NAME" ]; then
-      echo " APP_NAME für Produktion nicht gesetzt!"
+      echo " APP_NAME for Production not set!"
       exit 1
     fi
     ;;
   *)
-    echo "Ungültiges Environment: $ENV"
+    echo "illegal Environment: $ENV"
     exit 1
     ;;
 esac
 
-echo "📦 Setze Heroku-Stack auf 'container' (falls nötig)..."
+echo "Set Heroku-Stack to 'container' "
 heroku stack:set container --app "$APP_NAME"
 
 echo " Deploying to Heroku environment: $ENV (App: $APP_NAME)"
@@ -43,4 +43,4 @@ docker push registry.heroku.com/$APP_NAME/web
 # trigger Heroku-Release
 heroku container:release web --app $APP_NAME
 
-echo "Deployment erfolgreich abgeschlossen für $ENV  → $APP_NAME"
+echo "Deployment successful for $ENV  → $APP_NAME"
