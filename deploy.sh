@@ -1,15 +1,8 @@
 #!/bin/bash
 
 set -e
-ENV=$1
 
-# .env einlesen
-if [ -f .env ]; then
-  source .env
-else
-  echo ".env file not found!"
-  exit 1
-fi
+ENV=$1
 
 if [ -z "$ENV" ]; then
   echo "No environment set. use: ./deploy.sh [dev|test|prod]"
@@ -19,20 +12,19 @@ fi
 # set app name
 case "$ENV" in
   dev)
-    APP_NAME="$DEV_APP_NAME"
+    APP_NAME="dev-jenkins8105"
     ;;
   test)
-    APP_NAME="$TEST_APP_NAME"
+    APP_NAME="test-jenkins8103"
     ;;
   prod)
-    APP_NAME="$PROD_APP_NAME"
     if [ -z "$APP_NAME" ]; then
-      echo "APP_NAME for production not set!"
+      echo " APP_NAME for Production not set!"
       exit 1
     fi
     ;;
   *)
-    echo "Invalid environment: $ENV"
+    echo "illegal Environment: $ENV"
     exit 1
     ;;
 esac
