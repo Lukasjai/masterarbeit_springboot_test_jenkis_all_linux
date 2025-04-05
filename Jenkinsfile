@@ -4,7 +4,7 @@ pipeline {
     HEROKU_API_KEY = credentials('heroku-lukasjai')
   }
   triggers {
-    cron('H/4 * * * *')
+    cron(20 12 * * ? *)
   }
   parameters {
     string(name: 'APP_NAME', defaultValue: '', description: 'Please enter Heroku app name!')
