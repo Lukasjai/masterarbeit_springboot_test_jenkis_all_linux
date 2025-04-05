@@ -10,6 +10,7 @@ pipeline {
   }
   stages {
     stage('Build') {
+
       steps {
          sh 'docker build -t Lukasjai/masterarbeit_springboot_test_jenkis_all_linux:latest .'
       }
@@ -38,21 +39,8 @@ pipeline {
           }
         }
         steps {
-          script {
-            def isMergeFromDev = false
-            for (changeSet in currentBuild.changeSets) {
-              for (entry in changeSet.items) {
-                if (entry.msg.contains("Merge branch 'development'")) {
-                  isMergeFromDev = true
-                }
-              }
-            }
-            if (isMergeFromDev) {
               echo "Detected merge from development → Deploying to test"
               sh './deploy.sh test'
-            } else {
-              echo "No merge from development → Skipping test deployment"
-            }
           }
         }
       }
