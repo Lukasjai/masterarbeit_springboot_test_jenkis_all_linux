@@ -38,8 +38,6 @@ echo " Deploying to Heroku environment: $ENV (App: $APP_NAME)"
 docker tag Lukasjai/masterarbeit_springboot_test_jenkis_all_linux:latest registry.heroku.com/$APP_NAME/web
 docker push registry.heroku.com/$APP_NAME/web
 
-
-
 # trigger Heroku-Release
 heroku container:release web --app $APP_NAME
 
