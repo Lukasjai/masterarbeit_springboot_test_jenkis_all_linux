@@ -16,6 +16,7 @@ public class CalculatorController {
     }
 
 
+
     @GetMapping("/Calculator")
     public String calculatorPage() {
         return "calculator";
