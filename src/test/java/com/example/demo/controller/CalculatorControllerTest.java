@@ -12,14 +12,14 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(CalculatorController.class)  // 🔹 Lädt nur den Controller
+@WebMvcTest(CalculatorController.class)
 @ExtendWith(org.mockito.junit.jupiter.MockitoExtension.class)
 class CalculatorControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean  // 🔥 Stellt sicher, dass Spring den Mock injiziert
+    @MockBean
     private CalculatorService calculatorService;
 
     @Test
@@ -31,7 +31,7 @@ class CalculatorControllerTest {
 
     @Test
     void testCalculateEndpoint() throws Exception {
-        when(calculatorService.add(2, 3)).thenReturn(5);  // 🔹 Mock für Addition
+        when(calculatorService.add(2, 3)).thenReturn(5);
 
         mockMvc.perform(get("/calculate").param("a", "2").param("b", "3"))
                 .andExpect(status().isOk())
