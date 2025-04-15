@@ -14,7 +14,7 @@ public class DemoApplication {
 
 	@RequestMapping("/")
 	public String home() {
-		return "Hello World! performance test 3";
+		return "Hello World! performance test 4";
 	}
 
 }
