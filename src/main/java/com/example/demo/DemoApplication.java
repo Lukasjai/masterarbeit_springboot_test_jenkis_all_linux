@@ -14,7 +14,7 @@ public class DemoApplication {
 
 	@RequestMapping("/")
 	public String home() {
-		return "Hello World! was automatically pushed on 14:30";
+		return "Hello World! new";
 	}
 
 }
